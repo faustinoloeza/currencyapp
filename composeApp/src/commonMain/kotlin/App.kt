@@ -14,6 +14,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import currencyconverter.composeapp.generated.resources.Res
 import currencyconverter.composeapp.generated.resources.compose_multiplatform
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -32,6 +33,25 @@ fun App() {
                     Text("Compose: $greeting")
                 }
             }
+
+            val scope = rememberCoroutineScope()
+            var text by remember { mutableStateOf("Loading") }
+            LaunchedEffect(true) {
+                scope.launch {
+                    text = try {
+                        Greeting().greeting()
+                    } catch (e: Exception) {
+                        e.message ?: "=("
+                    }
+                }
+            }
+            GreetingView(text)
+            //GreetingView(text)
         }
     }
+}
+
+@Composable
+fun GreetingView(text: String) {
+    Text(text = text)
 }
