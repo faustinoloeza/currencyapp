@@ -12,6 +12,10 @@ voyager = "1.0.0"
 koin-core = "3.5.6"
 ktor = "2.3.10"
 coroutines = "1.8.0"
+kotlinx-datetime = "0.6.0-RC.2"
+realm-db = "1.11.0"
+plugin-serialization = "1.9.22"
+stately-common = "2.0.7"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -28,6 +32,9 @@ voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", vers
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 
+#Date and Time Library
+kotlin-datetime = {module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime"}
+
 #Koin - Dependency Injection
 koin-core = {module = "io.insert-koin:koin-core", version.ref = "koin-core"}
 
@@ -36,13 +43,23 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-cio = {module = "io.ktor:ktor-client-cio", version.ref = "ktor"}
+ktor-client-content-negotiation = {module = "io.ktor:ktor-client-content-negotiation", version.ref= "ktor"}
+ktor-serialization-kotlinx-json = {module = "io.ktor:ktor-serialization-kotlinx-json", version.ref= "ktor"}
 
 #coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+#Database - Library
+mongodb-realm = {module = "io.realm.kotlin:library-base", version.ref = "realm-db"}
+
+#Currency - Library
+stately-common = {module = "co.touchlab:stately-common", version.ref = "stately-common"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+realm-plugin = {id = "io.realm.kotlin", version.ref = "realm-db"}
+kotlinxSerialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "plugin-serialization"}
