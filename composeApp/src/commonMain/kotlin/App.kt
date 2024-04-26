@@ -44,7 +44,7 @@ fun AddLoginScreen() {
                 val maxWidth = constraints.maxWidth
                 val childConstraints = constraints.copy(
                     minWidth = 0,
-                    maxWidth = maxWidth.coerceAtMost(400) // Ancho máximo de 400dp
+                    maxWidth = maxWidth.coerceAtMost(800) // Ancho máximo de 400dp
                 )
                 val placeable = measurable.measure(childConstraints)
                 layout(placeable.width, placeable.height) {
