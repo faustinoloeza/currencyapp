@@ -11,7 +11,6 @@ data class ApiResponse(
 
 @Serializable
 data class MetaData(
-    //@SerialName("last_updated_at")
     val last_updated_at: String
 )
 

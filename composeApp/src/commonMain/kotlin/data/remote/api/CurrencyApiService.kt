@@ -40,7 +40,8 @@ class CurrencyApiService : ICurrencyApiservice {
     override suspend fun getLatestExchangeRates(): RequestState<List<Currency>> {
         return try {
             val response = httpClient.get(ENDPOINT_CURRENCY)
-            if (response.status.value == 200) {
+            println("TEST")
+          if (response.status.value == 200) {
                 println("API RESPONSE: ${response.body<String>()}")
                 val apiResponse = Json.decodeFromString<ApiResponse>(response.body())
                 RequestState.Success(data = apiResponse.data.values.toList())
@@ -48,6 +49,7 @@ class CurrencyApiService : ICurrencyApiservice {
                 RequestState.Error(message = "Error Code: ${response.status}")
             }
         } catch (e: Exception) {
+            println("Error ${e.message.toString()}")
             RequestState.Error(message = e.message.toString())
         }
     }
