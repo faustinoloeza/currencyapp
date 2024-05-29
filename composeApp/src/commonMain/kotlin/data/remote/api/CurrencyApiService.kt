@@ -19,7 +19,7 @@ class CurrencyApiService(
 ) : ICurrencyApiservice {
     companion object {
         const val ENDPOINT_CURRENCY = "https://api.currencyapi.com/v3/latest";
-        const val API_KEY_CURRENCY = "SUPERSECRET";
+        const val API_KEY_CURRENCY = "SUPERSECRETX";
     }
 
     private val httpClient = HttpClient {
