@@ -1,6 +1,8 @@
 package data.remote.api
 
+import data.local.Preference
 import domain.ICurrencyApiservice
+import domain.IPreferenceRepository
 import domain.model.ApiResponse
 import domain.model.Currency
 import domain.model.RequestState
@@ -12,7 +14,9 @@ import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-class CurrencyApiService : ICurrencyApiservice {
+class CurrencyApiService(
+    private val Preferences: IPreferenceRepository
+) : ICurrencyApiservice {
     companion object {
         const val ENDPOINT_CURRENCY = "https://api.currencyapi.com/v3/latest";
         const val API_KEY_CURRENCY = "SUPERSECRET";
@@ -40,10 +44,12 @@ class CurrencyApiService : ICurrencyApiservice {
     override suspend fun getLatestExchangeRates(): RequestState<List<Currency>> {
         return try {
             val response = httpClient.get(ENDPOINT_CURRENCY)
-            println("TEST")
-          if (response.status.value == 200) {
+            if (response.status.value == 200) {
                 println("API RESPONSE: ${response.body<String>()}")
                 val apiResponse = Json.decodeFromString<ApiResponse>(response.body())
+
+                val lastupdated = apiResponse.meta.last_updated_at
+                Preferences.saveLastUpdated(lastupdated)
                 RequestState.Success(data = apiResponse.data.values.toList())
             } else {
                 RequestState.Error(message = "Error Code: ${response.status}")
