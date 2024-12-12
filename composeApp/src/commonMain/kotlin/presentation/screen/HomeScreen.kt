@@ -8,9 +8,98 @@ import data.remote.api.CurrencyApiService
 class HomeScreen:Screen {
     @Composable
     override fun Content() {
-        println("=D")
+        LoginScreen()
         LaunchedEffect(Unit){
-            CurrencyApiService().getLatestExchangeRates()
+            //CurrencyApiService().getLatestExchangeRates()
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LoginScreen() {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Login") },
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Icono de usuario
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = "User Icon",
+                modifier = Modifier.size(100.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Campo de email
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email") },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Email, contentDescription = "Email Icon")
+                },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Campo de contraseña
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Password") },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Lock, contentDescription = "Password Icon")
+                },
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Botón de login
+            Button(
+                onClick = { /* Implementar lógica de login */},
+                modifier = Modifier.fillMaxWidth().height(50.dp)
+            ) {
+                Text("Login")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Texto de "Olvidaste tu contraseña"
+            TextButton(onClick = { /* Implementar recuperación de contraseña */}) {
+                Text("¿Olvidaste tu contraseña?")
+            }
+
+            // Botón de registro
+            OutlinedButton(
+                onClick = { /* Implementar navegación a registro */},
+                modifier = Modifier.fillMaxWidth().height(50.dp)
+            ) {
+                Text("Registrarse")
+            }
         }
     }
 }
